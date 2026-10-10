@@ -1,0 +1,288 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+/* =========================
+    1. GLOBAL VARIABLES
+========================= */
+:root {
+  font-family: 'Space Grotesk', sans-serif;
+  color: #191a16;
+  background: #edede7;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --color-bg: #edede7;
+  --color-text: #191a16;
+  --color-muted: #6c6d64;
+  --color-border: #c9c9c1;
+  --color-accent: #caff45;
+
+  --font-main: 'Space Grotesk', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+}
+
+/* =========================
+    2. RESET
+========================= */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  min-height: 100%;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  font-family: var(--font-main);
+  color: var(--color-text);
+
+  /* Nền lưới giống Figma */
+  background-color: var(--color-bg);
+  background-image:
+    linear-gradient(to right, rgba(25, 26, 22, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(25, 26, 22, 0.035) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  color: inherit;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid #89ad2f;
+  outline-offset: 4px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img,
+svg {
+  display: block;
+}
+
+p {
+  margin: 0;
+}
+
+h1,
+h2,
+h3 {
+  margin-top: 0;
+  font-family: var(--font-main);
+  color: var(--color-text);
+}
+
+/* =========================
+    3. ROOT & APP LAYOUT
+========================= */
+#root {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.app-shell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  padding: 0 6%;
+  overflow: hidden;
+}
+
+/* =========================
+    4. HEADER
+========================= */
+header {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 82px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-text);
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  background: var(--color-accent);
+}
+
+.brand-mark svg {
+  width: 21px;
+  height: 21px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.header-label {
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* =========================
+    5. SHARED ELEMENTS
+========================= */
+.kicker {
+  display: inline-block;
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.page-enter {
+  animation: pageEnter 0.45s ease both;
+}
+
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Các màn hình placeholder hiện tại */
+.content-screen {
+  flex: 1;
+  padding: 60px 0;
+}
+
+.content-screen h2 {
+  margin-bottom: 24px;
+  font-size: clamp(32px, 5vw, 56px);
+}
+
+/* =========================
+    6. FOOTER
+========================= */
+footer {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 58px;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #89ad2f;
+}
+
+/* =========================
+    7. RESPONSIVE
+========================= */
+@media (max-width: 800px) {
+  .app-shell {
+    padding-right: 5%;
+    padding-left: 5%;
+  }
+
+  header {
+    min-height: 70px;
+  }
+
+  .header-label {
+    font-size: 9px;
+  }
+
+  footer {
+    gap: 12px;
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 420px) {
+  .brand {
+    gap: 8px;
+    font-size: 15px;
+  }
+
+  .brand-mark {
+    width: 30px;
+    height: 30px;
+  }
+
+  footer {
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    padding: 12px 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,1 @@
+export type Screen = "home" | "games" | "reaction" | "aim" | "settings" | "exit"
