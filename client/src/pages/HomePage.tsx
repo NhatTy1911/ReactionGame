@@ -33,14 +33,14 @@ function HomePage({onNavigate} : HomePageProps) {
                         <Icon name="arrow"/>
                     </span>
                 </button>
-                <button className="menu-primary" onClick={() => onNavigate("settings")}>
+                <button onClick={() => onNavigate("settings")}>
                     <span className="menu-index">02</span>
                     <span>Settings</span>
                     <span className="menu-icon">
                         <Icon name="settings"/>
                     </span>
                 </button>
-                <button className="menu-primary" onClick={() => onNavigate("exit")}>
+                <button onClick={() => onNavigate("exit")}>
                     <span className="menu-index">03</span>
                     <span>Exit</span>
                     <span className="menu-icon">

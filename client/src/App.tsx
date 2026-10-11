@@ -3,6 +3,7 @@ import './App.css'
 import HomePage from './pages/HomePage'
 import type { Screen } from './types/game';
 import Icon from './components/common/Icon';
+import GameSelectPage from './pages/GameSelectPage';
 
 function App() {
   const [screen, setScreen] = useState<Screen>("home");
@@ -28,6 +29,10 @@ function App() {
 
         {screen === "home" && (
           <HomePage onNavigate={setScreen}/>
+        )}
+
+        {screen === "games" && (
+          <GameSelectPage onNavigate={setScreen}/>
         )}
       </main>
     </>
