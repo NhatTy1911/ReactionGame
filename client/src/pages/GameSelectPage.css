@@ -1,0 +1,308 @@
+/* =========================
+    GAME SELECT PAGE
+========================= */
+
+.game-select {
+    width: 100%;
+    max-width: 1240px;
+    margin: 0 auto;
+    flex: 1;
+    padding: 38px 0;
+
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 58px;
+    align-items: center;
+}
+
+/* =========================
+    LEFT: HEADING
+========================= */
+
+.game-select-heading {
+    min-width: 0;
+}
+
+.back-button {
+    display: block;
+    padding: 0;
+    margin: 0 0 42px;
+
+    border: 0;
+    background: transparent;
+    color: #73746b;
+
+    font: 10px "DM Mono", monospace;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.back-button:hover {
+    color: #191a16;
+}
+
+.game-select-heading .kicker {
+    display: block;
+    color: #717269;
+
+    font-family: "DM Mono", monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.17em;
+    text-transform: uppercase;
+}
+
+.game-select-heading h2 {
+    margin: 15px 0 18px;
+
+    font-size: clamp(50px, 6vw, 82px);
+    line-height: 0.95;
+    letter-spacing: -0.055em;
+    font-weight: 600;
+}
+
+.game-select-heading p {
+    max-width: 300px;
+    margin: 0;
+
+    color: #6c6d64;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* =========================
+    RIGHT: GAME GRID
+========================= */
+
+.game-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 18px;
+    min-width: 0;
+}
+
+/* =========================
+    GAME CARD
+========================= */
+
+.game-card {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    min-width: 0;
+    min-height: 500px;
+    padding: 28px;
+    overflow: hidden;
+
+    border: 1px solid #d0d0c8;
+    background: #f6f6f1;
+    color: #191a16;
+
+    text-align: left;
+    cursor: pointer;
+
+    transition:
+        transform 0.25s,
+        box-shadow 0.25s;
+}
+
+.game-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 18px 45px rgba(30, 31, 25, 0.1);
+}
+
+.game-card:focus-visible {
+    outline: 3px solid #191a16;
+    outline-offset: 3px;
+}
+
+/* Card number */
+
+.card-number {
+    position: relative;
+    z-index: 2;
+
+    color: #7c7d73;
+    font-family: "DM Mono", monospace;
+    font-size: 9px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+}
+
+/* =========================
+    CARD VISUAL / ICON
+========================= */
+
+.card-visual {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -57%);
+
+    display: grid;
+    place-items: center;
+
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: #caff45;
+}
+
+/* Reaction icon */
+
+.reaction-card .card-visual svg {
+    width: 65px;
+    height: 65px;
+
+    fill: #191a16;
+    stroke: none;
+}
+
+/* Aim card */
+
+.aim-card {
+    border-color: #20211c;
+    background: #20211c;
+    color: white;
+}
+
+.aim-card .card-number,
+.aim-card .card-copy small {
+    color: #9a9b92;
+}
+
+/* Aim target rings */
+
+.target-rings {
+    border: 1px solid #53544c;
+    background: transparent;
+
+    box-shadow:
+        0 0 0 35px #282923,
+        0 0 0 36px #53544c,
+        0 0 0 72px #20211c,
+        0 0 0 73px #53544c;
+}
+
+.aim-card .target-rings svg {
+    width: 65px;
+    height: 65px;
+
+    fill: none;
+    stroke: #caff45;
+    stroke-width: 1.8;
+}
+
+/* =========================
+    CARD TEXT
+========================= */
+
+.card-copy {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    padding-right: 0;
+    padding-bottom: 0;
+}
+
+.card-copy strong {
+    font-size: 29px;
+    font-weight: 600;
+    letter-spacing: -0.035em;
+}
+
+.card-copy small {
+    color: #717269;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+/* =========================
+    CARD ARROW
+========================= */
+
+.card-arrow {
+    position: absolute;
+    right: 25px;
+    bottom: 28px;
+
+    display: grid;
+    place-items: center;
+
+    width: 38px;
+    height: 38px;
+
+    border: 1px solid currentColor;
+}
+
+.card-arrow svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* =========================
+    RESPONSIVE
+========================= */
+
+@media (max-width: 800px) {
+    .game-select {
+        display: block;
+        padding: 28px 0;
+    }
+
+    .game-select-heading {
+        margin-bottom: 35px;
+    }
+
+    .game-select-heading h2 {
+        font-size: 54px;
+    }
+
+    .back-button {
+        margin-bottom: 28px;
+    }
+
+    .game-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .game-card {
+        min-height: 360px;
+    }
+}
+
+@media (max-width: 420px) {
+    .game-select-heading h2 {
+        font-size: 48px;
+    }
+
+    .game-card {
+        min-height: 330px;
+        padding: 22px;
+    }
+
+    .card-copy strong {
+        font-size: 25px;
+    }
+
+    .card-visual {
+        width: 140px;
+        height: 140px;
+    }
+
+    .card-arrow {
+        right: 20px;
+        bottom: 22px;
+    }
+}
