@@ -79,6 +79,16 @@ svg {
   display: block;
 }
 
+svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+}
+
 p {
   margin: 0;
 }
@@ -99,16 +109,6 @@ h3 {
   flex-direction: column;
   width: 100%;
   min-height: 100vh;
-}
-
-.app-shell {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  min-height: 100vh;
-  padding: 0 6%;
-  overflow: hidden;
 }
 
 /* =========================
