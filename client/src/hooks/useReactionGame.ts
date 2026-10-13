@@ -9,6 +9,7 @@ export type ReactionState =
 
 const MAX_HISTORY = 5;
 const STORAGE_KEY = "reflex-times";
+const BEST_STORAGE_KEY = "reflex-best";
 
 function loadTimes(): number[] {
     try {
@@ -25,10 +26,30 @@ function loadTimes(): number[] {
     }
 }
 
+function loadBestTime() : number | null {
+    try {
+        const saved = localStorage.getItem(BEST_STORAGE_KEY);
+
+        if (saved === null) return null;
+
+        const parsed: unknown = JSON.parse(saved);
+
+        if (typeof parsed === "number" && Number.isFinite(parsed) && parsed >= 0) {
+            return parsed;
+        }
+
+        return null;
+    }
+    catch {
+        return null;
+    }
+}
+
 export function useReactionGame() {
     const [reactionState, setReactionState] = useState<ReactionState>("idle");
     const [reactionTime, setReactionTime] = useState<number | null>(null);
     const [times, setTimes] = useState<number[]>(loadTimes);
+    const [bestTime, setBestTime] = useState<number | null>(loadBestTime);
 
     const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const startTimeRef = useRef<number | null>(null);
@@ -70,6 +91,11 @@ export function useReactionGame() {
             setReactionTime(elapsed);
 
             setTimes((prev) => [elapsed, ...prev].slice(0, MAX_HISTORY));
+
+            setBestTime((prev) => 
+                prev === null ? elapsed : Math.min(prev, elapsed)
+            );
+
             setReactionState("result")
             startTimeRef.current = null;
             return;
@@ -88,16 +114,22 @@ export function useReactionGame() {
     }, [times]);
 
     useEffect(() => {
+        if (bestTime !== null) {
+            localStorage.setItem(BEST_STORAGE_KEY, JSON.stringify(bestTime));
+        } else {
+            localStorage.removeItem(BEST_STORAGE_KEY);
+        }
+    }, [bestTime]);
+
+    useEffect(() => {
         return () => {
             clearGameTimer();
         }
     }, [clearGameTimer]);
 
-    const best = times.length > 0 ? Math.min(...times) : null;
-
     const average = times.length > 0 ? Math.round(times.reduce((sum, time) => sum + time, 0) / times.length) : null;
 
     return {
-        reactionState, reactionTime, times, best, average, handleGameClick, clearHistory
+        reactionState, reactionTime, times, best: bestTime, average, handleGameClick, clearHistory
     };
 }

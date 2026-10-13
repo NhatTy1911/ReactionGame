@@ -1,0 +1,256 @@
+/* Main layout */
+.play-screen {
+    width: 100%;
+    max-width: 1240px;
+    margin: 0 auto;
+    flex: 1;
+    padding: 38px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Toolbar */
+.play-toolbar {
+    min-height: 44px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 45px;
+    font-family: "DM Mono", monospace;
+    text-transform: uppercase;
+}
+
+.play-toolbar .back-button {
+    margin-right: auto;
+    margin-bottom: 0;
+}
+
+.play-toolbar>div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    color: #7b7c72;
+    font-size: 8px;
+    letter-spacing: 0.1em;
+}
+
+.play-toolbar strong {
+    color: #191a16;
+    font: 500 14px "Space Grotesk", sans-serif;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+/* Main play area */
+.reaction-field {
+    position: relative;
+    flex: 1;
+    min-height: 510px;
+    padding: 48px;
+    overflow: hidden;
+    border: 1px solid #d1d1ca;
+    background: #f6f6f1;
+    color: #191a16;
+    cursor: pointer;
+    text-align: left;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    transition: background 0.2s, color 0.2s;
+}
+
+.reaction-field:focus-visible {
+    outline: 3px solid #191a16;
+    outline-offset: 3px;
+}
+
+.reaction-field::after {
+    content: "";
+    position: absolute;
+    right: -100px;
+    bottom: -150px;
+    width: 360px;
+    height: 360px;
+    border: 1px solid #deded6;
+    border-radius: 50%;
+    box-shadow:
+        0 0 0 45px #eeeeE8,
+        0 0 0 46px #deded6,
+        0 0 0 92px #f6f6f1,
+        0 0 0 93px #deded6;
+    pointer-events: none;
+}
+
+/* Three signal dots */
+.signal {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    gap: 6px;
+}
+
+.signal i {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #d0d0c8;
+}
+
+.signal i:first-child {
+    background: #191a16;
+}
+
+/* Message */
+.game-message {
+    position: relative;
+    z-index: 2;
+    max-width: 720px;
+    display: flex;
+    flex-direction: column;
+}
+
+.game-message strong {
+    margin-top: 17px;
+    font-size: clamp(58px, 7vw, 105px);
+    line-height: 0.9;
+    letter-spacing: -0.065em;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.game-message small {
+    max-width: 470px;
+    margin-top: 24px;
+    color: #66675f;
+    font-size: 16px;
+    line-height: 1.55;
+}
+
+/* Action */
+.game-action {
+    position: relative;
+    z-index: 3;
+    width: fit-content;
+    min-height: 52px;
+    padding: 0 23px;
+    border: 0;
+    background: #191a16;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.game-action svg {
+    width: 17px;
+    height: 17px;
+}
+
+/* Waiting: dark background */
+.reaction-waiting .reaction-field {
+    background: #20211c;
+    color: white;
+}
+
+.reaction-waiting .game-message small,
+.reaction-waiting .kicker {
+    color: #96978e;
+}
+
+.reaction-waiting .reaction-field::after {
+    opacity: 0.15;
+}
+
+.reaction-waiting .signal i {
+    background: #4f5048;
+}
+
+.reaction-waiting .signal i:nth-child(2) {
+    background: white;
+}
+
+/* Ready: lime green */
+.reaction-ready .reaction-field {
+    background: #caff45;
+    color: #191a16;
+}
+
+.reaction-ready .game-message small,
+.reaction-ready .kicker {
+    color: #405018;
+}
+
+.reaction-ready .reaction-field::after {
+    border-color: #a9d73b;
+    box-shadow:
+        0 0 0 45px #c1f33f,
+        0 0 0 46px #a9d73b,
+        0 0 0 92px #caff45,
+        0 0 0 93px #a9d73b;
+}
+
+.reaction-ready .signal i {
+    background: #91ba2f;
+}
+
+/* False start: orange-red */
+.reaction-early .reaction-field {
+    background: #ff6b50;
+    color: #191a16;
+}
+
+.reaction-early .game-message small,
+.reaction-early .kicker {
+    color: #6d281b;
+}
+
+/* Result */
+.reaction-result .reaction-field {
+    background: #f6f6f1;
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+    .play-screen {
+        padding: 20px 0;
+    }
+
+    .play-toolbar {
+        gap: 20px;
+    }
+
+    .reaction-field {
+        min-height: 520px;
+        padding: 28px;
+    }
+
+    .game-message strong {
+        font-size: clamp(54px, 17vw, 76px);
+    }
+
+    .game-message small {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .play-toolbar {
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .play-toolbar .back-button {
+        flex-basis: 100%;
+    }
+
+    .reaction-field {
+        min-height: 460px;
+        padding: 22px;
+    }
+}
