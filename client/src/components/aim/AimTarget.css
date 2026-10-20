@@ -1,0 +1,50 @@
+/* AimTarget.css */
+
+.aim-target {
+    position: absolute;
+    z-index: 4;
+
+    box-sizing: content-box;
+    padding: 0;
+
+    transform: translate(-50%, -50%);
+    border: 4px solid rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+
+    background: #ff765f;
+    cursor: crosshair;
+
+    box-shadow: 0 0 24px rgba(255, 118, 95, 0.35);
+    animation: aim-target-in 0.16s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.aim-target .target-dot {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: inherit;
+}
+
+.aim-target.grid-target {
+    background: #ffbf47;
+    box-shadow: 0 0 22px rgba(255, 191, 71, 0.3);
+}
+
+.aim-target.tracking-target {
+    border-width: 5px;
+    background: #62d8ff;
+    box-shadow: 0 0 30px rgba(98, 216, 255, 0.4);
+    animation-duration: 0.3s;
+}
+
+.aim-target:focus-visible {
+    outline: 2px solid #caff45;
+    outline-offset: 4px;
+}
+
+@keyframes aim-target-in {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.65);
+    }
+}

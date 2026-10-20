@@ -1,0 +1,56 @@
+/* AimToolbar.css */
+
+.aim-toolbar {
+    height: 44px;
+    min-height: 44px;
+    padding: 0 40px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 45px;
+    font-family: "DM Mono", monospace;
+    text-transform: uppercase;
+}
+
+.aim-toolbar .back-button {
+    margin-right: auto;
+    margin-bottom: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #73746b;
+    cursor: pointer;
+    font: 10px "DM Mono", monospace;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.aim-toolbar .back-button:hover {
+    color: #191a16;
+}
+
+.aim-toolbar>div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 8px;
+    color: #7b7c72;
+    letter-spacing: 0.1em;
+}
+
+.aim-toolbar>div strong {
+    color: #191a16;
+    font: 500 14px "Space Grotesk", sans-serif;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+@media (max-width: 800px) {
+    .aim-toolbar {
+        gap: 18px;
+    }
+
+    .aim-toolbar>div:nth-of-type(3) {
+        display: none;
+    }
+}

@@ -1,0 +1,32 @@
+/* AimPlaying.css */
+
+.aim-progress {
+    position: absolute;
+    z-index: 3;
+    left: 0;
+    bottom: 0;
+
+    height: 6px;
+    background: #caff45;
+
+    transition: width 0.15s;
+    pointer-events: none;
+}
+
+/* Hiệu ứng sân chơi khi bắt đầu */
+.aim-field.aim-playing {
+    border-color: #20211c;
+    background-color: #20211c;
+
+    background-image:
+        radial-gradient(circle at center,
+            transparent 0,
+            rgba(0, 0, 0, 0.16) 100%),
+        linear-gradient(rgba(255, 255, 255, 0.04) 1px,
+            transparent 1px),
+        linear-gradient(90deg,
+            rgba(255, 255, 255, 0.04) 1px,
+            transparent 1px);
+
+    background-size: auto, 32px 32px, 32px 32px;
+}

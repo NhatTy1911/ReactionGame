@@ -54,10 +54,17 @@ export function useReactionGame() {
     const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const startTimeRef = useRef<number | null>(null);
 
+    const rafRef = useRef<number | null>(null);
+
     const clearGameTimer = useCallback(() => {
         if (timeoutRef.current !== null) {
             clearTimeout(timeoutRef.current);
             timeoutRef.current = null;
+        }
+
+        if (rafRef.current !== null) {
+            cancelAnimationFrame(rafRef.current);
+            rafRef.current = null;
         }
     }, []);
 
@@ -71,13 +78,16 @@ export function useReactionGame() {
         const delay = 1800 + Math.random() * 2800;
 
         timeoutRef.current = setTimeout(() => {
-            startTimeRef.current = performance.now();
-            setReactionState("ready");
             timeoutRef.current = null;
-        }, delay)
+            setReactionState("ready");
+            rafRef.current = requestAnimationFrame(() => {
+                startTimeRef.current = performance.now();
+                rafRef.current = null;
+            });
+        }, delay);
     }, [clearGameTimer]);
 
-    const handleGameClick = useCallback(() => {
+    const handleGameClick = useCallback((inputTime: number = performance.now()) => {
         if (reactionState === "waiting") {
             clearGameTimer();
             startTimeRef.current = null;
@@ -85,8 +95,10 @@ export function useReactionGame() {
             return;
         }
 
-        if (reactionState === "ready" && startTimeRef.current !== null) {
-            const elapsed = Math.round(performance.now() - startTimeRef.current);
+        if (reactionState === "ready") {
+            if (startTimeRef.current === null) return;
+
+            const elapsed = Math.max(0, Math.round(inputTime - startTimeRef.current));
 
             setReactionTime(elapsed);
 

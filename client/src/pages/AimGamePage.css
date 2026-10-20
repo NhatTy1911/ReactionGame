@@ -1,0 +1,78 @@
+/* AimGamePage.css */
+
+.aim-screen {
+    width: 100%;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 38px 0;
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.aim-screen {
+    position: relative;
+    flex: 1;
+    min-height: 510px;
+    overflow: hidden;
+
+    border: 1px solid #d1d1ca;
+
+    background-color: #f6f6f1;
+    background-image:
+        linear-gradient(rgba(25, 26, 22, 0.035) 1px,
+            transparent 1px),
+        linear-gradient(90deg,
+            rgba(25, 26, 22, 0.035) 1px,
+            transparent 1px);
+    background-size: 32px 32px;
+
+    cursor: crosshair;
+    isolation: isolate;
+}
+
+.aim-field {
+    position: relative;
+
+    width: 100%;
+    max-width: 1200px;
+    min-height: 520px;
+    height: clamp(520px, 65vh, 640px);
+
+    margin-inline: auto;
+    overflow: hidden;
+    cursor: crosshair;
+    isolation: isolate;
+
+    background-image:
+        linear-gradient(rgba(25, 26, 22, 0.035) 1px,
+            transparent 1px),
+        linear-gradient(90deg,
+            rgba(25, 26, 22, 0.035) 1px,
+            transparent 1px);
+
+    background-size: 32px 32px;
+}
+
+.aim-screen .aim-field.aim-playing {
+    border-color: #20211c;
+    background-color: #20211c;
+}
+
+@media (max-width: 800px) {
+    .aim-screen {
+        padding: 20px 0;
+    }
+
+    .aim-screen {
+        min-height: 520px;
+    }
+
+    .aim-field {
+        min-height: 480px;
+        height: 65vh;
+        max-height: 600px;
+    }
+}

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useReactionGame } from "../hooks/useReactionGame";
 import type { Screen } from "../types/game";
 import Icon from "../components/common/Icon";
@@ -14,20 +14,23 @@ function ReactionGamePage({onNavigate}: ReactionGamePageProps) {
         reactionState, reactionTime, best, average, handleGameClick
     } = useReactionGame();
 
+    const handlePointerDown = (event: React.PointerEvent<HTMLButtonElement>) => {
+        if (event.pointerType === "mouse" && event.button !== 0) return;
+        handleGameClick(event.timeStamp);
+    }
+
     useEffect(() => {
         const onKeyDown = (event: KeyboardEvent) => {
             if (event.code !== "Space" && event.code !== "Enter") return;
 
-            const target = event.target;
-
-            if (target instanceof HTMLElement 
-                && (target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName))) {
-                    return;
-                }
+            const el = event.target;
+            if (el instanceof HTMLElement) {
+                if (el.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(el.tagName)) return;
+                if (el.closest("button, a") && !el.closest(".reaction-field")) return;
+            }
 
             event.preventDefault();
-
-            if (!event.repeat) handleGameClick();
+            if (!event.repeat) handleGameClick(event.timeStamp);
         }
 
         window.addEventListener("keydown", onKeyDown);
@@ -54,7 +57,13 @@ function ReactionGamePage({onNavigate}: ReactionGamePageProps) {
                 </div>
             </div>
 
-            <button className="reaction-field" onClick={handleGameClick} aria-label="Reaction test. Click or press Space to play.">
+            <button className="reaction-field" 
+                onPointerDown={handlePointerDown} 
+                onClick={(event) => {
+                    // click do bàn phím / screen reader sinh ra có detail === 0
+                    if (event.detail === 0) handleGameClick(event.timeStamp);
+                }}
+                aria-label="Reaction test. Click or press Space to play.">
                 <span className="signal" aria-hidden="true">
                     <i/>
                     <i/>
