@@ -1,0 +1,205 @@
+/* AimModeDetail.css */
+
+.mode-detail {
+    padding: 32px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.difficulty-tag {
+    width: fit-content;
+    padding: 7px 9px;
+
+    border: 1px solid #bfc0b7;
+    color: #77786f;
+
+    font: 8px "DM Mono", monospace;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.mode-detail>strong {
+    margin-top: 20px;
+    font-size: 32px;
+    line-height: 1;
+    letter-spacing: -0.04em;
+}
+
+.mode-detail>p {
+    min-height: 66px;
+    margin: 14px 0 22px;
+
+    color: #66675f;
+    font-size: 14px;
+    line-height: 1.55;
+}
+
+/* Benchmark difficulty */
+.benchmark-levels {
+    width: 100%;
+    margin: -6px 0 22px;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.benchmark-levels button {
+    min-height: 54px;
+    padding: 8px 10px;
+
+    border: 1px solid #c9c9c1;
+    border-right: 0;
+    background: transparent;
+
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 3px;
+}
+
+.benchmark-levels button:last-child {
+    border-right: 1px solid #c9c9c1;
+}
+
+.benchmark-levels button strong {
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.benchmark-levels button span {
+    color: #77786f;
+    font: 8px "DM Mono", monospace;
+}
+
+.benchmark-levels button.active {
+    background: #191a16;
+    color: white;
+}
+
+.benchmark-levels button.active span {
+    color: #caff45;
+}
+
+/* Mode statistics */
+.aim-brief {
+    display: flex;
+    width: 100%;
+    margin-bottom: 27px;
+
+    border-top: 1px solid #d1d1ca;
+    border-bottom: 1px solid #d1d1ca;
+}
+
+.aim-brief>span {
+    min-width: 120px;
+    padding: 12px 18px;
+
+    border-right: 1px solid #d1d1ca;
+    color: #77786f;
+
+    font: 9px "DM Mono", monospace;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.aim-brief>span:first-child {
+    padding-left: 0;
+}
+
+.aim-brief>span:last-child {
+    border-right: 0;
+}
+
+.aim-brief strong {
+    margin-right: 4px;
+    color: #191a16;
+    font-size: 12px;
+}
+
+/* Recent attempts */
+.recent-attempts {
+    width: 100%;
+    margin: -12px 0 22px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+}
+
+.recent-attempts>span {
+    color: #77786f;
+    font: 8px "DM Mono", monospace;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.recent-attempts>div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.recent-attempts i {
+    padding: 5px 7px;
+    background: #e7e7e0;
+    color: #5e5f57;
+
+    font: 8px "DM Mono", monospace;
+    font-style: normal;
+}
+
+.mode-detail .game-action {
+    width: fit-content;
+    min-height: 52px;
+    padding: 0 23px;
+
+    border: 0;
+    background: #191a16;
+    color: white;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.mode-detail .game-action svg {
+    width: 17px;
+    height: 17px;
+}
+
+.mode-detail .game-action:hover {
+    background: #34352e;
+}
+
+@media (max-width: 800px) {
+    .mode-detail {
+        padding: 24px 20px;
+    }
+
+    .aim-brief>span {
+        min-width: 0;
+        flex: 1;
+        padding: 10px;
+        overflow-wrap: anywhere;
+    }
+
+    .aim-brief>span:first-child {
+        padding-left: 0;
+    }
+
+    .aim-brief strong {
+        display: inline-block;
+    }
+}

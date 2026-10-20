@@ -5,6 +5,7 @@ import type { Screen } from './types/game';
 import Icon from './components/common/Icon';
 import GameSelectPage from './pages/GameSelectPage';
 import ReactionGamePage from './pages/ReactionGamePage';
+import AimGamePage from './pages/AimGamePage';
 
 function App() {
   const [screen, setScreen] = useState<Screen>("home");
@@ -38,6 +39,10 @@ function App() {
         
         {screen === "reaction" && (
           <ReactionGamePage onNavigate={setScreen}/>
+        )}
+        
+        {screen === "aim" && (
+          <AimGamePage onNavigate={setScreen}/>
         )}
       </main>
     </>

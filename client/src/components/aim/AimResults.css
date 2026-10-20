@@ -1,0 +1,173 @@
+/* AimResults.css */
+
+.aim-results {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+
+    padding: 48px;
+
+    display: grid;
+    grid-template-columns: 1.25fr 0.75fr;
+    gap: 70px;
+    align-items: center;
+
+    overflow: auto;
+    background: #f6f6f1;
+}
+
+.result-lead {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.result-lead>strong {
+    margin-top: 18px;
+
+    font-size: clamp(75px, 10vw, 140px);
+    line-height: 0.8;
+    letter-spacing: -0.075em;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.result-lead>strong small {
+    margin-left: 9px;
+    color: #717269;
+    font-size: 0.24em;
+    letter-spacing: 0;
+}
+
+.result-lead p {
+    max-width: 470px;
+    margin: 28px 0 32px;
+
+    color: #66675f;
+    font-size: 14px;
+    line-height: 1.55;
+}
+
+.result-lead p strong {
+    color: #191a16;
+}
+
+.result-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 18px;
+}
+
+.result-actions .game-action {
+    min-height: 52px;
+    padding: 0 23px;
+
+    border: 0;
+    background: #191a16;
+    color: white;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.result-actions .game-action:hover {
+    background: #34352e;
+}
+
+.result-actions .game-action svg {
+    width: 17px;
+    height: 17px;
+}
+
+.result-secondary {
+    min-height: 52px;
+    padding: 0 4px;
+
+    border: 0;
+    border-bottom: 1px solid #191a16;
+    background: transparent;
+
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.result-secondary:hover {
+    color: #627d22;
+    border-color: #627d22;
+}
+
+/* Result metrics */
+.result-metrics {
+    border-top: 1px solid #c9c9c1;
+}
+
+.result-metrics>div {
+    min-height: 72px;
+    padding: 0 4px;
+
+    border-bottom: 1px solid #c9c9c1;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.result-metrics span {
+    color: #77786f;
+    font: 9px "DM Mono", monospace;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.result-metrics strong {
+    font-size: 19px;
+    font-weight: 500;
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 800px) {
+    .aim-results {
+        padding: 28px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: center;
+        gap: 34px;
+    }
+
+    .result-lead>strong {
+        font-size: 76px;
+    }
+
+    .result-lead p {
+        margin: 20px 0 24px;
+    }
+
+    .result-metrics {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .result-metrics>div {
+        padding: 12px 10px;
+        min-width: 0;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+    }
+
+    .result-metrics strong {
+        text-align: left;
+    }
+}

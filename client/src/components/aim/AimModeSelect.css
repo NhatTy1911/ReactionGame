@@ -1,0 +1,67 @@
+/* AimModeSelect.css */
+
+.aim-mode-select {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+
+    padding: 38px 42px;
+    overflow: auto;
+
+    display: grid;
+    grid-template-columns: 0.72fr 1.28fr;
+    gap: 48px;
+    align-items: center;
+}
+
+.mode-heading>strong {
+    display: block;
+    max-width: 420px;
+    margin-top: 16px;
+
+    font-size: clamp(42px, 5vw, 70px);
+    line-height: 0.9;
+    letter-spacing: -0.06em;
+}
+
+.mode-heading p {
+    max-width: 410px;
+    margin: 24px 0 0;
+
+    color: #66675f;
+    font-size: 14px;
+    line-height: 1.55;
+}
+
+.mode-layout {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    min-height: 380px;
+
+    border: 1px solid #c9c9c1;
+    background: rgba(246, 246, 241, 0.8);
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+    .aim-mode-select {
+        padding: 26px 20px;
+        display: block;
+    }
+
+    .mode-heading {
+        margin-bottom: 25px;
+    }
+
+    .mode-heading>strong {
+        font-size: 48px;
+    }
+
+    .mode-heading p {
+        margin-top: 16px;
+    }
+
+    .mode-layout {
+        display: block;
+    }
+}
