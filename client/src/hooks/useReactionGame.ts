@@ -119,7 +119,12 @@ export function useReactionGame() {
 
     const clearHistory = useCallback(() => {
         setTimes([]);
-    }, []);
+        setBestTime(null);
+        setReactionTime(null);
+        setReactionState("idle");
+        startTimeRef.current = null;
+        clearGameTimer();
+    }, [clearGameTimer]);
 
     useEffect(() => {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(times));
