@@ -12,6 +12,7 @@ import Icon from "./components/common/Icon";
 
 import { useReactionGame } from "./hooks/useReactionGame";
 import { useAimHistory } from "./hooks/useAimHistory";
+import FpsTrainerPage from "./pages/FpsTrainerPage";
 
 const TARGET_SIZE_KEY = "target-size";
 const GAME_MOTION_KEY = "game-motion";
@@ -91,7 +92,7 @@ function App() {
       )}
 
       {screen === "aim" && (
-        <AimGamePage onNavigate={setScreen} />
+        <FpsTrainerPage onNavigate={setScreen} />
       )}
 
       {screen === "settings" && (

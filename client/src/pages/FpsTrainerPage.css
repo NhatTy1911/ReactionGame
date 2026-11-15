@@ -1,0 +1,666 @@
+body:has(.fps-screen) {
+    overflow: hidden;
+}
+
+/* ================================
+    FPS SCREEN - FULL VIEWPORT
+================================ */
+
+.fps-screen {
+    --fps-header-height: 80px;
+
+    box-sizing: border-box;
+    width: 100vw;
+    max-width: none;
+    margin-left: calc(50% - 50vw);
+
+    height: calc(100dvh - var(--fps-header-height));
+    min-height: 0;
+
+    padding: 12px clamp(16px, 3vw, 48px) 40px;
+
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* ================================
+    TOOLBAR
+================================ */
+
+.fps-toolbar {
+    position: relative;
+
+    flex: 0 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 16px;
+    min-height: 64px;
+    margin-bottom: 12px;
+}
+
+.fps-toolbar button {
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.fps-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+.fps-title h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.fps-title span,
+.fps-status {
+    color: #94a3b8;
+    font-size: 0.8rem;
+}
+
+.fps-status {
+    margin-left: auto;
+}
+
+/* ================================
+    GAME ARENA
+================================ */
+
+.fps-arena {
+    position: relative;
+
+    width: 100%;
+    height: min(68dvh, 650px);
+
+    /* Không kéo khung game sát đáy */
+    flex: 0 1 auto;
+    min-height: min(380px, 45dvh);
+
+    /* Căn giữa theo chiều dọc trong phần không gian còn lại */
+    margin-block: auto;
+
+    overflow: hidden;
+    border: 1px solid #374151;
+    border-radius: 12px;
+
+    background: #11151d;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none;
+}
+
+.fps-arena canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Đang lock chuột */
+.fps-arena.is-locked {
+    cursor: none;
+}
+
+.fps-arena.is-locked .fps-lock-prompt,
+.fps-arena.is-locked .fps-instructions {
+    display: none;
+}
+
+/* ================================
+    CROSSHAIR
+================================ */
+
+.fps-crosshair {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: 18px;
+    height: 18px;
+
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.fps-crosshair span:first-child {
+    position: absolute;
+    top: 8px;
+    left: 0;
+
+    width: 18px;
+    height: 2px;
+
+    background: white;
+}
+
+.fps-crosshair span:last-child {
+    position: absolute;
+    top: 0;
+    left: 8px;
+
+    width: 2px;
+    height: 18px;
+
+    background: white;
+}
+
+/* ================================
+    HUD
+================================ */
+
+.fps-hud {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    right: 16px;
+
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+
+    color: white;
+    font-size: 0.8rem;
+
+    pointer-events: none;
+}
+
+/* ================================
+    FPS STATS
+================================ */
+
+.fps-stats {
+    position: absolute;
+    right: 16px;
+    bottom: 12px;
+
+    z-index: 4;
+
+    color: #94a3b8;
+    font-size: 0.7rem;
+    font-variant-numeric: tabular-nums;
+
+    pointer-events: none;
+}
+
+/* ================================
+    INSTRUCTIONS
+================================ */
+
+.fps-instructions {
+    position: absolute;
+    left: 50%;
+    bottom: 24px;
+
+    transform: translateX(-50%);
+
+    width: max-content;
+    max-width: calc(100% - 32px);
+
+    text-align: center;
+    color: white;
+
+    pointer-events: none;
+}
+
+.fps-instructions h2 {
+    margin-bottom: 8px;
+}
+
+.fps-instructions p {
+    margin: 4px 0;
+    color: #cbd5e1;
+    font-size: 0.875rem;
+}
+
+/* ================================
+    POINTER LOCK PROMPT
+================================ */
+
+.fps-lock-prompt {
+    position: absolute;
+    inset: 0;
+
+    z-index: 5;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    pointer-events: none;
+}
+
+.fps-lock-card {
+    max-width: calc(100% - 32px);
+
+    padding: 20px 28px;
+
+    border: 1px solid rgb(148 163 184 / 30%);
+    border-radius: 12px;
+
+    background: rgb(15 23 42 / 88%);
+    color: #f8fafc;
+
+    text-align: center;
+}
+
+.fps-lock-card h2 {
+    margin: 0 0 12px;
+}
+
+.fps-lock-card p {
+    margin: 6px 0;
+    color: #cbd5e1;
+    font-size: 0.9rem;
+}
+
+/* ================================
+    RESPONSIVE
+================================ */
+
+@media (max-width: 600px) {
+    .fps-screen {
+        padding: 10px;
+    }
+
+    .fps-toolbar {
+        min-height: 58px;
+        gap: 8px;
+    }
+
+    .fps-title h1 {
+        font-size: 1.1rem;
+    }
+
+    .fps-title span,
+    .fps-status {
+        font-size: 0.65rem;
+    }
+
+    .fps-hud {
+        flex-wrap: wrap;
+        font-size: 0.7rem;
+    }
+
+    .fps-instructions {
+        bottom: 16px;
+    }
+}
+
+@media (max-height: 650px) {
+    .fps-screen {
+        padding-top: 6px;
+        padding-bottom: 24px;
+    }
+
+    .fps-toolbar {
+        min-height: 52px;
+        margin-bottom: 8px;
+    }
+
+    .fps-arena {
+        height: 62dvh;
+        min-height: 300px;
+    }
+}
+
+.fps-arena .fps-lock-prompt {
+    display: none;
+}
+
+.fps-arena:fullscreen {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    max-height: none;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+}
+
+.fps-arena:fullscreen .fps-hud {
+    top: 24px;
+    left: 32px;
+    right: 32px;
+    font-size: 0.95rem;
+}
+
+.fps-arena:fullscreen .fps-stats {
+    right: 24px;
+    bottom: 16px;
+}
+
+.fps-countdown {
+    position: absolute;
+    inset: 0;
+    z-index: 6;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #f8fafc;
+    pointer-events: none;
+}
+
+.fps-countdown span {
+    font-size: clamp(5rem, 18vmin, 11rem);
+    font-weight: 700;
+    line-height: 1;
+    text-shadow: 0 4px 24px rgb(0 0 0 / 55%);
+    animation: fps-countdown-pop 1s ease-out both;
+}
+
+@keyframes fps-countdown-pop {
+    from {
+        opacity: 0;
+        transform: scale(1.6);
+    }
+
+    25% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    to {
+        opacity: 0.2;
+        transform: scale(0.85);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .fps-countdown span {
+        animation: none;
+    }
+}
+
+@keyframes fps-hitmarker-pop {
+    from {
+        opacity: 1;
+        scale: 0.6;
+    }
+
+    60% {
+        opacity: 1;
+        scale: 1;
+    }
+
+    to {
+        opacity: 0;
+        scale: 1.15;
+    }
+}
+
+/* Đồng hồ + điểm trong HUD */
+.fps-hud-item {
+    font-variant-numeric: tabular-nums;
+}
+
+.fps-hud-item.is-low strong {
+    color: #ff6b6b;
+}
+
+/* Màn kết quả */
+.fps-results {
+    position: absolute;
+    inset: 0;
+    z-index: 7;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgb(8 11 18 / 72%);
+    color: #f8fafc;
+    cursor: default;
+}
+
+.fps-results-card {
+    width: min(420px, calc(100% - 32px));
+    padding: 28px;
+
+    border: 1px solid rgb(148 163 184 / 30%);
+    border-radius: 14px;
+
+    background: rgb(15 23 42 / 94%);
+    text-align: center;
+}
+
+.fps-results-card h2 {
+    margin: 0 0 16px;
+}
+
+.fps-results-score span {
+    display: block;
+    color: #94a3b8;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+}
+
+.fps-results-score strong {
+    font-size: 3.5rem;
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+}
+
+.fps-results-best {
+    margin: 4px 0 18px;
+    color: #94a3b8;
+    font-size: 0.9rem;
+}
+
+.fps-results-best.is-new {
+    color: #caff45;
+    font-weight: 600;
+}
+
+.fps-results-stats {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 0 0 22px;
+}
+
+.fps-results-stats dt {
+    color: #94a3b8;
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+}
+
+.fps-results-stats dd {
+    margin: 4px 0 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+.fps-results-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.fps-results-actions button {
+    padding: 10px 20px;
+    border: 1px solid rgb(148 163 184 / 40%);
+    border-radius: 8px;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+}
+
+.fps-results-actions .fps-results-primary {
+    border-color: #caff45;
+    background: #caff45;
+    color: #11151d;
+    font-weight: 600;
+}
+
+/* ================================
+    HIT MARKER (dính vào quả bóng) + HUD + TIMER Ở GIỮA
+    (dán thêm vào cuối FpsTrainerPage.css)
+
+    XOÁ các khối cũ này trong file CSS (không dùng nữa):
+        .fps-hitmarker, .fps-hitmarker span, .fps-hitmarker span:first-child,
+        .fps-hitmarker span:last-child, @keyframes fps-hitmarker-pop,
+        .fps-hud-item.is-low strong, và .fps-hitmarker trong @media (prefers-reduced-motion)
+================================ */
+
+/* Lớp phủ đúng bằng khung canvas; từng dấu X được đặt bằng transform */
+.fps-hit-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.fps-hit-anchor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    will-change: transform;
+}
+
+.fps-hit-x {
+    position: absolute;
+    top: -18px;
+    left: -18px;
+    width: 36px;
+    height: 36px;
+    animation: fps-hit-pop 0.26s ease-out both;
+}
+
+.fps-hit-x span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 36px;
+    height: 4px;
+    border-radius: 2px;
+    background: #fff;
+    /* viền tối để vẫn nhìn rõ khi nằm trên quả bóng sáng màu */
+    box-shadow: 0 0 0 1.5px rgb(0 0 0 / 70%), 0 0 8px rgb(0 0 0 / 60%);
+}
+
+.fps-hit-x span:first-child {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.fps-hit-x span:last-child {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+@keyframes fps-hit-pop {
+    from {
+        opacity: 1;
+        scale: 0.55;
+    }
+
+    55% {
+        opacity: 1;
+        scale: 1;
+    }
+
+    to {
+        opacity: 0;
+        scale: 1.2;
+    }
+}
+
+/* HUD 3 cột: điểm bên trái, đồng hồ ở giữa, trúng/trượt bên phải */
+.fps-hud {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: start;
+    gap: 16px;
+}
+
+.fps-hud-side {
+    display: flex;
+    gap: clamp(16px, 3vw, 40px);
+}
+
+.fps-hud-side.is-right {
+    justify-content: flex-end;
+}
+
+.fps-hud-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-variant-numeric: tabular-nums;
+}
+
+.fps-hud-item span {
+    color: #94a3b8;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+}
+
+.fps-hud-item strong {
+    font-size: clamp(1.25rem, 2.6vmin, 1.9rem);
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+/* Đồng hồ to, nằm giữa phía trên */
+.fps-timer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 6ch;
+    color: #f8fafc;
+    font-variant-numeric: tabular-nums;
+    text-shadow: 0 2px 12px rgb(0 0 0 / 60%);
+}
+
+.fps-timer span {
+    color: #94a3b8;
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+}
+
+.fps-timer strong {
+    font-size: clamp(3rem, 9vmin, 5.5rem);
+    font-weight: 800;
+    line-height: 1;
+}
+
+.fps-timer.is-low strong {
+    color: #ff5d5d;
+}
+
+@media (max-width: 600px) {
+    .fps-hud {
+        gap: 8px;
+    }
+
+    .fps-hud-side {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .fps-hud-side.is-right {
+        align-items: flex-end;
+    }
+
+    .fps-hud-item span,
+    .fps-timer span {
+        font-size: 0.65rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .fps-hit-x {
+        animation: none;
+    }
+}

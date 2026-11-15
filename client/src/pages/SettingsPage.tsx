@@ -77,7 +77,7 @@ export default function SettingsPage({
             <button
                 type="button"
                 className={`toggle ${motion ? "active" : ""}`}
-                onClick={() => setMotion((previous) => !previous)}
+                onClick={() => setMotion(!motion)}
                 role="switch"
                 aria-checked={motion}
                 aria-label="Interface motion"
