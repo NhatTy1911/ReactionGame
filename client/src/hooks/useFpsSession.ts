@@ -14,6 +14,12 @@ interface UseFpsSessionOptions {
     onFinish?: () => void;
 }
 
+interface LockCapable {
+    requestPointerLock(options?: {
+        unadjustedMovement?: boolean;
+    }): Promise<void> | void;
+}
+
 /** Sau khi vào fullscreen, trình duyệt có thể nhả lock tạm thời: chờ khoảng này rồi mới coi là người chơi đã thoát. */
 const FULLSCREEN_GRACE_MS = 600;
 const CLOCK_INTERVAL_MS = 100;
@@ -85,14 +91,30 @@ export function useFpsSession({
         };
 
         const requestLock = () => {
+            const target = arena as unknown as LockCapable;
+
+            const fallback = () => {
+                try {
+                    const result = target.requestPointerLock();
+
+                    if (result && typeof result.catch === "function") {
+                        result.catch(() => undefined);
+                    }
+                } catch {
+                    // Không thể khôi phục Pointer Lock.
+                }
+            };
+
             try {
-                const result = arena.requestPointerLock() as unknown as Promise<void> | void;
+                const result = target.requestPointerLock({
+                    unadjustedMovement: true,
+                });
 
                 if (result && typeof result.catch === "function") {
-                    result.catch(() => undefined);
+                    result.catch(fallback);
                 }
             } catch {
-                // Chưa đủ điều kiện để lock, người chơi bấm lại là được.
+                fallback();
             }
         };
 

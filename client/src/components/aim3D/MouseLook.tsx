@@ -49,6 +49,13 @@ export default function MouseLook({
             },
             onLockChange: (locked) => {
                 arena.classList.toggle("is-locked", locked);
+
+                if (locked) {
+                    // Đồng bộ lại trạng thái yaw/pitch theo camera hiện tại
+                    // trước khi tiếp tục nhận chuyển động chuột.
+                    look.yaw = camera.rotation.y;
+                    look.pitch = camera.rotation.x;
+                }
             },
         });
     }, [get, lockElementId]);

@@ -48,3 +48,24 @@ export function applyLookDelta(
 
     return true;
 }
+
+/**
+ * Sau khi khoá chuột, trình duyệt (nhất là khi khoá lại lần 2) có thể phát một cú nhảy delta
+ * lớn: con trỏ vừa được kéo từ chỗ nút bấm về giữa màn hình và quãng đó bị tính là chuột di chuyển.
+ * Bỏ qua mọi chuyển động trong khoảng này ngay sau khi khoá. Người chơi vừa bấm nút nên không mất gì.
+ */
+export const LOCK_SETTLE_MS = 250;
+
+/**
+ * Chuyển động chuột có nằm trong khoảng "chờ ổn định" sau khi khoá không?
+ * Hai mốc đều là event.timeStamp (giờ lúc trình duyệt tạo sự kiện), không phải giờ lúc code chạy,
+ * nên vẫn đúng khi luồng chính bị đứng hình (React render, đếm ngược...) làm sự kiện bị xử lý trễ.
+ * Sự kiện có mốc sớm hơn lúc khoá (hiệu âm) cũng bị coi là nằm trong khoảng này.
+ */
+export function isWithinLockSettle(
+    moveTimeStamp: number,
+    lockTimeStamp: number,
+    settleMs: number = LOCK_SETTLE_MS,
+): boolean {
+    return moveTimeStamp - lockTimeStamp < settleMs;
+}

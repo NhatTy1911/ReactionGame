@@ -10,6 +10,7 @@ import FpsShooting from "./FpsShooting";
 import TargetPop, { POP_START_SCALE } from "./TargetPop";
 import {
     getRandomTargetPosition,
+    PLAYER_EYE,
     type TargetPosition,
 } from "../../utils/targetUtils";
 import type { HitMarkerStore, WorldPoint } from "../../utils/hitMarkerStore";
@@ -69,7 +70,11 @@ export default function FpsCanvas({
         bursts.burst(hitPosition.current);
         onHit(hitPosition.current);
 
-        const next = getRandomTargetPosition();
+        const next = getRandomTargetPosition([
+            hitPosition.current.x,
+            hitPosition.current.y,
+            hitPosition.current.z,
+        ]);
 
         // Dời bóng ngay trong lúc xử lý bắn (không chờ React render) để lần bắn sau
         // và khung hình kế tiếp đã thấy bóng ở vị trí mới
@@ -86,7 +91,7 @@ export default function FpsCanvas({
     return (
         <>
             <Canvas
-                camera={{ position: [0, 1.7, 8], fov: 75, near: 0.1, far: 100 }}
+                camera={{ position: PLAYER_EYE, fov: 75, near: 0.1, far: 100 }}
                 gl={{ antialias: true, powerPreference: "high-performance", stencil: false }}
                 dpr={[1, 1.5]}
             >

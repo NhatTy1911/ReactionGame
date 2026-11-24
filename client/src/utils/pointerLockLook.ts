@@ -1,4 +1,4 @@
-import { applyLookDelta, type LookState } from "./lookMath";
+import { applyLookDelta, isWithinLockSettle, type LookState } from "./lookMath";
 
 export interface LookSettings {
     sensitivity: number;
@@ -39,6 +39,9 @@ export function attachPointerLockLook({
     const doc = element.ownerDocument;
     const target = element as unknown as LockCapable;
 
+    // event.timeStamp của lần khoá chuột gần nhất; -Infinity = đang không khoá
+    let lockedAt = Number.NEGATIVE_INFINITY;
+
     const requestFallbackLock = () => {
         try {
             swallow(target.requestPointerLock());
@@ -67,27 +70,48 @@ export function attachPointerLockLook({
 
     const handleMouseMove = (event: MouseEvent) => {
         if (doc.pointerLockElement !== element) return;
+
         if (event.movementX === 0 && event.movementY === 0) return;
 
-        if (applyLookDelta(state, event.movementX, event.movementY, settings.sensitivity)) {
+        // Ngay sau khi khoá (nhất là khi Play again) trình duyệt có thể phát một cú nhảy delta
+        // lớn do con trỏ bị kéo từ nút bấm về giữa màn hình: bỏ qua trong khoảng ngắn đó.
+        if (isWithinLockSettle(event.timeStamp, lockedAt)) return;
+
+        if (
+            applyLookDelta(
+                state,
+                event.movementX,
+                event.movementY,
+                settings.sensitivity,
+            )
+        ) {
             onLook(state);
         }
     };
 
-    const handleLockChange = () => {
+    const handleLockChange = (event: Event) => {
+        const locked = doc.pointerLockElement === element;
+
+        lockedAt = locked ? event.timeStamp : Number.NEGATIVE_INFINITY;
+
+        onLockChange?.(locked);
+    };
+
+    // Xin khoá thất bại: chỉ báo trạng thái, không đụng tới mốc thời gian của lần khoá thành công
+    const handleLockError = () => {
         onLockChange?.(doc.pointerLockElement === element);
     };
 
     element.addEventListener("click", requestLock);
     doc.addEventListener("mousemove", handleMouseMove);
     doc.addEventListener("pointerlockchange", handleLockChange);
-    doc.addEventListener("pointerlockerror", handleLockChange);
+    doc.addEventListener("pointerlockerror", handleLockError);
 
     return () => {
         element.removeEventListener("click", requestLock);
         doc.removeEventListener("mousemove", handleMouseMove);
         doc.removeEventListener("pointerlockchange", handleLockChange);
-        doc.removeEventListener("pointerlockerror", handleLockChange);
+        doc.removeEventListener("pointerlockerror", handleLockError);
 
         if (doc.pointerLockElement === element) {
             doc.exitPointerLock();
